@@ -9,4 +9,5 @@ public interface RoleeServic {
     RoleDTO findByd(long id);
 
 
+
 }

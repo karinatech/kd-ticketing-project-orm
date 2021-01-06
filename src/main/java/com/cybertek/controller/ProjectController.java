@@ -4,6 +4,8 @@ import com.cybertek.dto.ProjectDTO;
 import com.cybertek.dto.TaskDTO;
 import com.cybertek.dto.UserDTO;
 import com.cybertek.enums.Status;
+import com.cybertek.service.ProjectService;
+import com.cybertek.service.UserServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,28 +20,29 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-//    @Autowired
-//    ProjectService projectService;
-//    @Autowired
-//    UserService userService;
-//    @Autowired
-//    TaskService taskService;
-//
-//
-//    @GetMapping("/create")
-//    public String createProject(Model model) {
-//        model.addAttribute("project", new ProjectDTO());
-//        model.addAttribute("projects", projectService.findAll());
-//        model.addAttribute("managers", userService.findManagers());
-//        return "/project/create";
-//    }
-//
-//    @PostMapping("/create")
-//    public String insertProject(ProjectDTO project) {
-//        projectService.save(project);
+
+    ProjectService projectService;
+    UserServicee userService;
+
+    public ProjectController(ProjectService projectService, UserServicee userService) {
+        this.projectService = projectService;
+        this.userService = userService;
+    }
+
+    @GetMapping("/create")
+    public String createProject(Model model) {
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("managers", userService.listAllByRole("Manager"));
+        return "/project/create";
+    }
+
+    @PostMapping("/create")
+    public String insertProject(ProjectDTO project) {
+        projectService.save(project);
 //        project.setProjectStatus(Status.OPEN);
-//        return "redirect:/project/create";
-//    }
+        return "redirect:/project/create";
+    }
 //
 //    @GetMapping("/delete/{projectcode}")
 //    public String deleteProject(@PathVariable("projectcode") String projectcode) {
