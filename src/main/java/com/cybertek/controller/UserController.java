@@ -1,0 +1,52 @@
+package com.cybertek.controller;
+
+import com.cybertek.dto.UserDTO;
+import com.cybertek.service.RoleeServic;
+import com.cybertek.service.UserServicee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+    @Autowired
+    RoleeServic roleService;
+    @Autowired
+    UserServicee userService;
+
+    @GetMapping("/create")
+    public String createUser(Model model){
+        model.addAttribute("user",new UserDTO());
+        model.addAttribute("roles",roleService.liistAllllRoles());
+        model.addAttribute("users",userService.listAllUsers());
+        return "/user/create";
+    }
+    @PostMapping("/create")
+    public String insertUser(UserDTO user,Model model){
+        userService.save(user);
+        return "redirect:/user/create";
+    }
+    @GetMapping("/update/{id}")
+    public String editUser(@PathVariable String id, Model model){
+        model.addAttribute("user",userService.findByUserName(id));
+        model.addAttribute("roles",roleService.liistAllllRoles());
+        model.addAttribute("users",userService.listAllUsers());
+        return "/user/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") String id, UserDTO user,Model model){
+        userService.update(user);
+        return "redirect:/user/create";
+    }
+//    @GetMapping("/delete/{username}")
+//    public String deleteUser(@PathVariable("username") String username){
+//        userService.deleteById(username);
+//        return "redirect:/user/create";
+//    }
+}
