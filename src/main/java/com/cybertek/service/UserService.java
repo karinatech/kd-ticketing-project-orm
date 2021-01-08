@@ -5,7 +5,7 @@ import com.cybertek.entity.User;
 
 import java.util.List;
 
-public interface UserServicee {
+public interface UserService {
     List<UserDTO>listAllUsers();
     UserDTO findByUserName(String userNam);
 

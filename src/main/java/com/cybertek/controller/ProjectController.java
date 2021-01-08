@@ -1,12 +1,8 @@
 package com.cybertek.controller;
 
 import com.cybertek.dto.ProjectDTO;
-import com.cybertek.dto.TaskDTO;
-import com.cybertek.dto.UserDTO;
-import com.cybertek.enums.Status;
 import com.cybertek.service.ProjectService;
-import com.cybertek.service.UserServicee;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cybertek.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 
     ProjectService projectService;
-    UserServicee userService;
+    UserService userService;
 
-    public ProjectController(ProjectService projectService, UserServicee userService) {
+    public ProjectController(ProjectService projectService, UserService userService) {
         this.projectService = projectService;
         this.userService = userService;
     }
@@ -43,34 +36,34 @@ public class ProjectController {
 //        project.setProjectStatus(Status.OPEN);
         return "redirect:/project/create";
     }
-//
-//    @GetMapping("/delete/{projectcode}")
-//    public String deleteProject(@PathVariable("projectcode") String projectcode) {
-//        projectService.deleteById(projectcode);
-//        return "redirect:/project/create";
-//    }
-//
-//    @GetMapping("/complete/{projectcode}")
-//    public String completeProject(@PathVariable("projectcode") String projectcode) {
-//        projectService.complete(projectService.findById(projectcode));
-//        return "redirect:/project/create";
-//    }
-//
-//    @GetMapping("/update/{projectcode}")
-//    public String editProject(@PathVariable("projectcode") String projectcode, Model model) {
-//
-//        model.addAttribute("project", projectService.findById(projectcode));
-//        model.addAttribute("projects", projectService.findAll());
-//        model.addAttribute("managers", userService.findManagers());
-//
-//        return "/project/update";
-//    }
-//
-//    @PostMapping("/update/{projectCode}")
-//    public String updateProject(@PathVariable("projectCode") String projectCode, Model model) {
-//        projectService.update(projectService.findById(projectCode));
-//        return "redirect:/project/create";
-//    }
+
+    @GetMapping("/delete/{projectcode}")
+    public String deleteProject(@PathVariable("projectcode") String projectcode) {
+        projectService.delete(projectcode);
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/complete/{projectcode}")
+    public String completeProject(@PathVariable("projectcode") String projectcode) {
+        projectService.complete(projectcode);
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/update/{projectcode}")
+    public String editProject(@PathVariable("projectcode") String projectcode, Model model) {
+
+        model.addAttribute("project", projectService.getByProjectCode(projectcode));
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("managers", userService.listAllByRole("Manager"));
+
+        return "/project/update";
+    }
+
+    @PostMapping("/update/{projectCode}")
+    public String updateProject(@PathVariable("projectCode") String projectCode, ProjectDTO project) {
+        projectService.update(project);
+        return "redirect:/project/create";
+    }
 //
 //    @GetMapping("/manager/complete")
 //    public String getProjectsByManager(Model model) {

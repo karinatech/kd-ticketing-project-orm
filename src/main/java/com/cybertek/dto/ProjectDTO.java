@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class ProjectDTO {
     private String projectName;
     private String projectCode;
+private Long id;
     private UserDTO assignedManager;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;

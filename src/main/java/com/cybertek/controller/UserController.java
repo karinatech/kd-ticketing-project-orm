@@ -1,8 +1,8 @@
 package com.cybertek.controller;
 
 import com.cybertek.dto.UserDTO;
-import com.cybertek.service.RoleeServic;
-import com.cybertek.service.UserServicee;
+import com.cybertek.service.RoleService;
+import com.cybertek.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    RoleeServic roleService;
+    RoleService roleService;
     @Autowired
-    UserServicee userService;
+    UserService userService;
 
     @GetMapping("/create")
     public String createUser(Model model){

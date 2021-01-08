@@ -32,12 +32,12 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form class="needs-validation" novalidate th:action="@{/user/create}" method="post" th:object="${user}">
+                                    <form class="needs-validation" novalidate th:action="@{/user/create}" method="post" th:object="${user}" >
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="firstname" class="col-form-label">First Name</label>
-                                                    <input id="firstname" type="text" placeholder="first name" class="form-control" th:field="*{firstName}" required>
+                                                    <input id="firstname" type="text" placeholder="first name" th:field="*{firstName}" class="form-control" required>
                                                     <div class="invalid-feedback">
                                                         Please enter first name.
                                                     </div>
@@ -47,7 +47,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="lastname" class="col-form-label">Last Name</label>
-                                                    <input id="lastname" type="text" placeholder="last name" class="form-control" th:field="*{lastName}" required>
+                                                    <input id="lastname" type="text" placeholder="last name" th:field="*{lastName}" class="form-control" required>
                                                     <div class="invalid-feedback">
                                                         Please enter last name.
                                                     </div>
@@ -59,7 +59,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control"  th:field="*{userName}"required>
+                                                    <input id="emailaddress" type="text" placeholder="email address" th:field="*{userName}" class="form-control" required>
                                                     <div class="invalid-feedback">
                                                         Please enter email.
                                                     </div>
@@ -69,7 +69,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="phonenumber" class="col-form-label">Phone Number</label>
-                                                    <input id="phonenumber" type="tel" placeholder="phone number" class="form-control"  pattern="^\d{10}$"  th:field="*{phone}"required>
+                                                    <input id="phonenumber" type="tel" placeholder="phone number" th:field="*{phone}" class="form-control"  pattern="^\d{10}$" required>
                                                     <div class="invalid-feedback">
                                                         Please enter 10 digit mobile number.
                                                     </div>
@@ -81,8 +81,8 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="password" class="col-form-label">Password</label>
-                                                    <input id="password" type="password" placeholder="password" class="form-control"
-                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" th:field="*{passWord}" required>
+                                                    <input id="password" type="password" placeholder="password" th:field="*{passWord}" class="form-control"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" required>
                                                     <div class="invalid-feedback">
                                                         Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters"
                                                     </div>
@@ -92,8 +92,8 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="repassword" class="col-form-label">Password</label>
-                                                    <input id="repassword" type="password" placeholder="confirm your password" class="form-control"
-                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"  th:field="*{passWord}" required>
+                                                    <input id="repassword" type="password" placeholder="confirm your password" th:field="*{passWord}" class="form-control"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" required>
                                                     <div class="invalid-feedback">
                                                         Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters"
                                                     </div>
@@ -118,8 +118,8 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select name="roleid" id="roleid" th:field="*{role}" class="custom-select" required="required">
-                                                        <option th:value=" ''" th:text="Select"></option>
+                                                    <select th:field="*{role}" class="custom-select" required="required">
+<!--                                                        <option th:value=" ''" th:text="Select"></option>-->
                                                         <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"></option>
                                                     </select>
                                                 </div>
@@ -177,7 +177,7 @@
                                             <tr th:each="user : ${users}">
                                                 <td th:text="${user.firstName + ' ' + user.lastName}"></td>
                                                 <td th:text="${user.userName}"></td>
-                                                <td th:text="${user.gender}"></td>
+                                                <td th:text="${user.gender.value}"></td>
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.role.description}"></td>
                                                 <td class="actions">
@@ -194,6 +194,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- ------------------------TABLE END----------------------------- -->
 
             </div>

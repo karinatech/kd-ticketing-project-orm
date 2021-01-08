@@ -19,8 +19,9 @@ import java.time.LocalDate;
 @Where(clause = "is_deleted=false")
 public class Project extends BaseEntity{
     private String projectName;
-
+@Column(unique = true)
     private String projectCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private User assignedManager;
@@ -29,9 +30,8 @@ public class Project extends BaseEntity{
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
     private String projectDetail;
-
+    @Enumerated(EnumType.STRING)
     private Status projectStatus;
 
 

@@ -4,7 +4,7 @@ import com.cybertek.dto.RoleDTO;
 
 import java.util.List;
 
-public interface RoleeServic {
+public interface RoleService {
     List<RoleDTO>liistAllllRoles();
     RoleDTO findByd(long id);
 

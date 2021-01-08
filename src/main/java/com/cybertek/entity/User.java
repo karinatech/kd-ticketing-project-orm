@@ -22,7 +22,9 @@ public class User extends BaseEntity{
     private String password;
     private boolean enabled;
     private String phone;
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+
+    //TODO removed cascade persist
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
