@@ -120,4 +120,24 @@ if(foundTask.isPresent()){
         return tasks.stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
 
     }
+
+    @Override
+    public void updateStatus(TaskDTO dto) {
+        Optional<Task> task=taskRepo.findById(dto.getId());
+        if(task.isPresent()){
+            task.get().setTaskStatus(dto.getTaskStatus());
+            taskRepo.save(task.get());
+
+
+        }
+    }
+
+    @Override
+    public List<TaskDTO> listAllTasksByStatus(Status status) {
+        User user = userRepo.findByUserName("employee.com");
+
+        List<Task>tasks=taskRepo.findAllByTaskStatusAndAssignedEmployee(status,user);
+
+        return tasks.stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
+    }
 }
