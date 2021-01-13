@@ -140,4 +140,10 @@ if(foundTask.isPresent()){
 
         return tasks.stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<TaskDTO> readAllByEmployee(User user) {
+        List<Task>tasks=taskRepo.findAllByTaskStatusIsNotAndAssignedEmployee(Status.COMPLETE,user);
+        return tasks.stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
+    }
 }

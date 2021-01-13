@@ -95,4 +95,11 @@ taskService.deleteByProject(projectMapper.convertToDtoProjectEntity(project));
         obj.setCompleteTaskCount(taskService.totalCompleetedTasks(project.getProjectCode()));
         return obj;}).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProjectDTO> readAllByManager(User user) {
+        List<Project>projects=projectRepo.findByAssignedManager(user);
+        return projects.stream().map(projectMapper::convertToDtoProjectEntity).collect(Collectors.toList());
+
+    }
 }
