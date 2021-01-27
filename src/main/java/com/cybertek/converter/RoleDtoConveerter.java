@@ -19,7 +19,7 @@ RoleService roleService;
 
     @Override
     public RoleDTO convert(String s) {
-        long id = Long.parseLong(s);
+        Long id = Long.parseLong(s);
         return roleService.findByd(id);
     }
 }

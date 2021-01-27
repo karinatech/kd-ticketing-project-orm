@@ -24,6 +24,20 @@
 
                         <div class="col-lg-6 col-md-12">
 
+                            <section class="panel panel-transparent">
+
+                                <div class="panel-body">
+
+                                    <!-- ------------------------FORM START----------------------------- -->
+                                    <form>
+
+
+                                    </form>
+                                    <!-- ------------------------FORM END----------------------------- -->
+
+                                </div>
+
+                            </section>
 
                         </div>
 
@@ -44,7 +58,7 @@
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped" >
+                                        <table class="table table-striped">
                                             <thead>
                                             <tr>
                                                 <th scope="col">Project Code</th>
@@ -58,13 +72,19 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="project : ${projects}">
-                                                <td th:text="${project.projectCode}" ></td>
-                                                <td th:text="${project.projectName}" ></td>
-                                                <td th:text="${project.startDate + ' '+ project.endDate}" ></td>
-                                                <td th:text="${project.assignedManager.firstName+' '+project.assignedManager.lastName}" ></td>
-                                                <td th:text="${project.unfinishedTaskCount+'/'+ project.completeTaskCount}"></td>
+                                                <td th:text="${project.projectCode}"></td>
+                                                <td th:text="${project.projectName}"></td>
+                                                <td th:text="${project.startDate + ' to ' + project.endDate}"></td>
+                                                <td th:text="${project.assignedManager.firstName + ' ' + project.assignedManager.lastName}"></td>
+                                                <td th:text="${project.unfinishedTaskCount + '/' + project.completeTaskCount}"></td>
                                                 <td th:text="${project.projectStatus}"></td>
-                                                <td><a class="btn btn-info rounded-0">Complete</a></td>
+
+                                                <td><a th:if="${project.unfinishedTaskCount==0 && project.projectStatus.geetValue()!='Completed'}"
+                                                       class="btn btn-info rounded-0" th:href="@{/project/manager/complete/{id}(id=${project.projectCode})}">Complete
+                                                </a>
+                                                <a th:if="${project.unfinishedTaskCount>0 || project.projectStatus.geetValue()=='Completed'}"
+                                                   class="btn btn-info rounded-0 disabled-button">Complete</a>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
