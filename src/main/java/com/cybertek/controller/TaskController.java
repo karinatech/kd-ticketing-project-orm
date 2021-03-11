@@ -86,6 +86,7 @@ taskService.delete(id);
         model.addAttribute("statuses",Status.values());
         return "task/employee-update";
     }
+
     @PostMapping("/employee/update/{id}")
     public String employee_update(@PathVariable("id") Long id, TaskDTO taskDTO){
         taskService.updateStatus(taskDTO);

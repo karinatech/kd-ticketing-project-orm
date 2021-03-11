@@ -41,6 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+
     @Override
     public List<ProjectDTO> listAllProjects() {
         List<Project>projects = projectRepo.findAll(Sort.by("projectCode"));

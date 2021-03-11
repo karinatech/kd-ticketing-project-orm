@@ -32,16 +32,16 @@ public class UserController {
         userService.save(user);
         return "redirect:/user/create";
     }
-    @GetMapping("/update/{id}")
-    public String editUser(@PathVariable String id, Model model){
-        model.addAttribute("user",userService.findByUserName(id));
+    @GetMapping("/update/{userName}")
+    public String editUser(@PathVariable("userName") String userName, Model model){
+        model.addAttribute("user",userService.findByUserName(userName));
         model.addAttribute("roles",roleService.liistAllllRoles());
         model.addAttribute("users",userService.listAllUsers());
         return "/user/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") String id, UserDTO user,Model model){
+    @PostMapping("/update/{userName}")
+    public String updateUser(@PathVariable("userName") String userName, UserDTO user,Model model){
         userService.update(user);
         return "redirect:/user/create";
     }
